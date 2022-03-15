@@ -1,11 +1,6 @@
 ## Requirements 
 - [x] Django , Heroku , Python , HTML CSS
 - [X] DB = SQLITE
-- [X] A book is unique based on the google id(volume id obtained using the google API) used in the table BOOKS .
-- [X] On adding same book again increase the Quantity 
-	 
-
-
 # Event Browse
 
 Users can 
@@ -19,6 +14,12 @@ Admin can
 - List events  
 - Update events
 - View Summary of an event
+	 
+![image](https://user-images.githubusercontent.com/87977393/158315955-d10458d0-0eea-4867-9daf-bb6565262653.png)
+
+
+![image](https://user-images.githubusercontent.com/87977393/158316217-af54de8b-93aa-4e2a-a00b-3fedcfd91092.png)
+
 
 
 ## Running locally
