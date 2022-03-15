@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if user.is_superuser %}
+
+
+<div class="container my-3">
+    <h2>Add a New Event</h2>
+    <form action="/" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="Event_name" class="form-label">Event Name</label>
+            <input type="text" class="form-control" name='Event_name' id="Event_name" aria-describedby="emailHelp">
+
+        </div>
+       
+        <div class="mb-3">
+            <label for="Description" class="form-label">Description</label>
+            <input type="text" class="form-control" name='desc' id="Description" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="max_seats" class="form-label">Max Seats</label>
+            <input type="text" class="form-control" name='max_seats' id="max_seats" aria-describedby="emailHelp">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+
+{% endif %}
+
+
+
+
+<div class="container my-3">
+    <h2> This is the listed Event's list </h2>
+
+    {% if all_events|length == 0 %}
+    <div class="alert alert-dark" role="alert">
+        No Event found. Add your first Book now!
+    </div>
+    {% else %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">S no.</th>
+               
+                <th scope="col">Event Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Price</th>
+                <th scope="col">booking_start</th>
+                <th scope="col">booking_end</th>
+                <th scope="col">seats_avaialble</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in all_events %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+
+                <td>{{event.name}}</td>
+                <td>{{event.desc}}</td>
+                <td>{{event.price_per_seat}}</td>
+
+                <td>{{event.booking_start}}</td>
+                <td>{{event.booking_end}}</td>
+
+                <!-- <td>{{  event.seats_avaialble|add:"/"|add:event.max_seats  }}</td> -->
+                <td>{{  event.seats_avaialble}}  / {{event.max_seats  }}</td>
+                
+                
+                 <!-- <td>
+                     <a href="/update/{{book.id}}" type="button"
+                        class="btn btn-outline-dark btn-sm mx-1">Update Book</button>
+                    <a href="/delete/{{book.id}}"  method="DELETE" type="button" class="btn btn-outline-info mx -2">Delete Book </button>
+                </td> -->
+
+                <td>
+                    {% if user.is_superuser %}
+
+                        <a href="/update/{{event.id}}" type="button"
+                        class="btn btn-outline-dark btn-sm mx-1">Update Event</button>
+                        <a href="/delete/{{event.id}}"  method="DELETE" type="button" class="btn btn-outline-info mx -2">Delete Event</button>
+                        <a href="/admin/eventrr/listevents/add/" type="button"
+                        class="btn btn-outline-dark btn-sm mx-1">List Event</button>
+                        <a href="/admin/eventrr/listevents/{{event.id}}/change" type="button"
+                        class="btn btn-outline-dark btn-sm mx-1">Update Listed Event</button>
+
+                    {% endif %}
+                        <a href="/bookticket/{{event.id}}" type="button"
+                        class="btn btn-outline-dark btn-sm mx-1">Book Ticket</button>
+               </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+{% endblock content %}

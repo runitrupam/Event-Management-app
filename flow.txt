@@ -1,0 +1,121 @@
+python -m pip install -U pip --user 
+pip install virtualenv
+virtualenv env       
+.\env\Scripts\activate.ps1
+
+
+pip install gunicorn # web server used for heroku 
+# django run server 
+python manage.py runserver 
+
+pip install gunicorn
+pip install django_heroku
+pip install django-crispy-forms
+
+pip freeze > requirements.txt
+
+heroku login
+
+Procfile:
+    web: gunicorn user_project.wsgi # Django user_project = Project Name
+	web: gunicorn app:app # flask 
+
+
+git init
+
+git add .   # move all change to stage
+
+git commit -m "Initialize commit"
+
+git remote -v # show all connections 
+
+https://book-inventory-library.herokuapp.com/ | https://git.heroku.com/book-inventory-library.git
+
+    SETTINGS.PY file 
+    
+    set debug  = False in setting.py 
+
+    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+    # Activate Django-Heroku.
+    django_heroku.settings(locals())
+git remote add herk1 https://git.heroku.com/book-inventory-library.git
+git push herk1 master
+heroku run python manage.py makemigrations
+heroku run python manage.py migrate
+heroku open
+
+
+git remote add origin https://github.com/runitrupam/django-book-inventory.git
+#git branch -M main
+git push -u origin master
+
+
+
+django-admin startproject userproject
+cd userproject  
+python manage.py startapp home
+from django.urls.conf import include
+
+url dispatcher , 
+    link goes to my project(hello .urls) --> redirected to the app (homeapp) .urls.
+    from homeapp.urls redirected to homeapp.view 
+    From view (we have different functions to catch the urls ) . and from here we render the html pages.
+
+
+
+
+
+python manage.py 
+    shows all commands of django
+
+python manage.py makemigrations
+    for if there is change in the schema 
+
+python manage.py migrate
+    to create tables reuired for authenticate(admin)
+
+python manage.py createsuperuser    
+
+
+add you model 
+    register your model (Contact) in admin. -- IMPORTANT
+
+    in settings of project(hello) -> add the app in that . 
+    INSTALLED_APPS = [
+        'homeapp.apps.HomeappConfig',
+----->>>>python manage.py makemigrations        
+
+Contact.objects.all()[0].name # to get the name of 1st object
+
+c = Contact.objects.filter(name="runit")
+c.name = 'ranjan'
+c.save()
+
+
+### authenticate or make log in page .
+# use {% csrf_token %} in login form 
+from django.contrib.auth import authenticate , login , logout 
+
+<form method="POST" action="/login">
+   
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        user = authenticate(name=name)
+        if user is not none:
+            login(request,user)
+
+ #logout
+ logout(request)
+ 
+ 
+ if request.user.is_anonymous:
+        #return render(request,'login.html')   #
+        return redirect("/loginUser")
+
+#making button to send POST request 
+<form action="/findBooks/" method="POST" class="d-flex">
+    {% csrf_token %}
+    <input class="form-control me-2" name = "search" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search for public books in Library</button>
+</form>        
