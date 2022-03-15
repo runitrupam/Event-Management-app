@@ -45,8 +45,8 @@ To run locally:
 	For ADMIN shows all events also .
 	For User only listed events.
 	GET : http://127.0.0.1:8000/
-
- 	path('admin/', admin.site.urls),
+```
+	path('admin/', admin.site.urls),
     path('home/',views.home,name='home'),
     path('',views.index,name='index'), # shows all the events for a user (to book tickets) , and update , delete option only for superuser
     path('update/<int:id>',views.update,name='update'), # UPDATE an event
@@ -62,7 +62,7 @@ To run locally:
     path("register/", views.register_request, name="register"),
     path("login", views.login_request, name="login"),
     path("logout", views.logout_request, name= "logout"),
-
+```
 		
 
 
