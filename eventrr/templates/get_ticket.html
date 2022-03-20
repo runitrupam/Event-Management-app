@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+
+
+
+
+
+<div class="container my-3">
+    <h2> This is the Ticket's list </h2>
+
+    {% if all_tickets|length == 0 %}
+    <div class="alert alert-dark" role="alert">
+        No ticket found. Add your first ticket now!
+    </div>
+    {% else %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">S no.</th>
+               
+                <th scope="col">Event Name</th>
+                <th scope="col">Description</th>
+                
+                <th scope="col">Seats Booked</th>
+                <th scope="col">Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in all_tickets %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+
+                <td>{{ticket.event_name}}</td>
+                <td>{{ticket.desc}}</td>
+                <td>{{ticket.seats_booked}}</td>
+
+                <td>{{ticket.total_price}}</td>
+               
+
+               
+                
+                
+                 <!-- <td>
+                     <a href="/update/{{book.id}}" type="button"
+                        class="btn btn-outline-dark btn-sm mx-1">Update Book</button>
+                    <a href="/delete/{{book.id}}"  method="DELETE" type="button" class="btn btn-outline-info mx -2">Delete Book </button>
+                </td> -->
+
+                <td>
+                   
+
+                        <a href="/unbookticket/{{ticket.ticket_id}}" type="button"
+                        class="btn btn-outline-dark btn-sm mx-1">Unbook Ticket</button>
+
+
+                        
+               </td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+{% endblock content %}

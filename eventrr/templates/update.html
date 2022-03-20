@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="container my-3">
+    <h2>Update your Book </h2>
+    <form action="/update/{{event.id}}" method="POST">
+        
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="event_Name">Your event Name: </label>
+                <input id="name" type="text" name="name" value="{{ event.event_name }}">
+                
+            </div>
+            
+            <div class="mb-3">
+                <label for="desc">Description : </label>
+                <input id="desc" type="text" name="desc" value="{{ event.desc }}">
+               
+            </div>
+          
+            <div class="mb-3">
+                <label for="max_seats">max_seats: </label>
+                <input id="max_seats" type="text" name="max_seats" value="{{ event.max_seats }}">
+               
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+            <a href="/admin/eventrr/listevents/{{event.id}}/change" type="button"
+                       class="btn btn-outline-dark btn-sm mx-1">list or unlist Event</button>
+
+        </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+{% endblock content %}
