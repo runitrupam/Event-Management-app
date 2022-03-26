@@ -313,12 +313,14 @@ def show_list_events(request):
 
 @api_view(['POST'])
 def post_list_events(request):
-    #data = request.data
+    data = request.data
     #serialize = ListEventSerialize(le,many = True)
     #print(data)
+
     serialize = ListEventSerialize(data = request.data)
+    data = ListEventSerialize.validate(data)
     if not serialize.is_valid() :
-        return Response({'status':403,'message':'Something went wrong'})
+        return Response({'status':403,'message':'Something went wrongs'})
 
     serialize.save()
 

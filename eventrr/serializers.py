@@ -12,3 +12,16 @@ class ListEventSerialize(serializers.ModelSerializer):
         model = ListEvents
         #field = '__all__'
         fields = ['id', 'event','booking_start', 'booking_end', 'price_per_seat', 'seats_avaialble',]
+
+    def validate(data):
+        #print('im')
+        #raise serializers.ValidationError({'error':'efgfdggst'})
+        ev_id =  data["event"]     
+        #print(ListEvents.objects.filter(event__id = ev_id ))
+        if not Event.objects.filter(id = ev_id) :
+            raise serializers.ValidationError({'error':'event id doesnt exist'})
+
+        if ListEvents.objects.filter(event__id = ev_id ):
+            raise serializers.ValidationError({'error':'event id alrady exist'})
+
+        return data 

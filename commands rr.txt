@@ -1,0 +1,17 @@
+.\env\Scripts\activate.ps1
+pip freeze > requirements.txt
+
+
+docker build --tag django-events .   -- to create a imge 
+//  docker run --publish 8001:8000 django-events  -- don't use , to create a single container for image django-events 
+
+docker-compose up  -- uses the created image and makes the container and runs it 
+docker-compose run --rm app python manage.py migrate . -- in another terminal 
+
+docker exec -it django_event_rr /bin/bash
+python manage.py runserver 
+
+
+docker-compose run --rm web python manage.py runserver  -- web is the service name ONLY THIS WORKS  once the docker is stopped 
+
+

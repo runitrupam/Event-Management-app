@@ -1,0 +1,27 @@
+version: '4'
+
+services:
+
+  web:
+      build: .
+      volumes:
+        - .:/my_app_dir
+      ports:
+        - 8001:8000
+      container_name: django_event_rr
+      command: python manage.py runserver 0.0.0.0:8000  
+      depends_on:
+        - db
+  db:
+    image: mysql
+    ports:
+      - "3308:3306"
+    environment:
+        MYSQL_DATABASE: 'testdb'
+        MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+        MYSQL_USER: 'root2'
+        MYSQL_PASSWORD: 'password'
+        MYSQL_ROOT_PASSWORD: 'password'
+    volumes:
+      - ./data/mysql/db:/var/lib/mysql
+  
